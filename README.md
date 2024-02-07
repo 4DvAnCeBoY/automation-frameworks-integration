@@ -7,21 +7,23 @@ For more information on how to use the TestRail CLI, please refer to the [TestRa
 
 ## Sample projects
 
-- [JUnit5](https://github.com/gurock/automation-frameworks-integration/blob/main/samples/java/junit5)
 - [JUnit5 with Selenium](https://github.com/gurock/automation-frameworks-integration/blob/main/samples/java/junit5-selenium)
-- [TestNG](https://github.com/gurock/automation-frameworks-integration/blob/main/samples/java/testng)
-- [NUnit](https://github.com/gurock/automation-frameworks-integration/blob/main/samples/dotnet/nunit)
-- [Robot Framework with Selenium](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/robotframework/robotframework-selenium)
-- [Robot Framework with Browser (Playwright)](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/robotframework/robotframework-browser)
-- [Pytest](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/python/pytest)
 - [Pytest with Selenium](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/python/pytest-selenium)
-- [Cypress](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/javascript/cypress)
-- [Cypress with saucectl](https://github.com/gurock/automation-frameworks-integration/tree/main/samples/javascript/cypress-saucectl)
 
-## Misc
+## Enable LambdaTest Cloud
 
-- [Jenkins docker images](https://github.com/gurock/automation-frameworks-integration/blob/main/misc/jenkins-docker)
-- [Azure pipelines agent image](https://github.com/gurock/automation-frameworks-integration/blob/main/misc/azure-pipelines-agent-docker)
+**LambdaTest Access:** Set LambdaTest **Username** and **Access Key** in environment variables.
+
+* For **Linux/macOS**:
+  
+  ```bash
+  export LT_USERNAME="YOUR_USERNAME" 
+  export LT_ACCESS_KEY="YOUR ACCESS KEY"
+  ```
+  * For **Windows**:
+  ```bash
+  set LT_USERNAME="YOUR_USERNAME" 
+  set LT_ACCESS_KEY="YOUR ACCESS KEY"
 
 ## License
 [BSD 3-Clause License](https://github.com/gurock/automation-frameworks-integration/tree/main/LICENSE.md)
