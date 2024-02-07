@@ -1,5 +1,0 @@
-host: https://INSTANCE-NAME.testrail.io
-username: USERNAME
-password: PASSWORD
-project: PROJECT NAME
-title: Cypress Automated Test Run (Code-first)

@@ -6,7 +6,6 @@ You need to install the following on your local machine:
 - Java (JDK 8 or higher)
 - Maven
 - Python3 
-- Chrome browser
 
 ## How to upload the test results to TestRail from your local machine
 

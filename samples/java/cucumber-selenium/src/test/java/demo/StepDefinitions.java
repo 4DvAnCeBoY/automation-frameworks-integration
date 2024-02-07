@@ -5,15 +5,16 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,13 +22,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class StepDefinitions {
 	private WebDriver driver = null;
 	private WebDriverWait wait;
+	public static final String USERNAME = System.getenv("LT_USERNAME");
+    public static final String ACCESS_KEY = System.getenv("LT_ACCESS_KEY");
+    public static final String GRID_URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub.lambdatest.com/wd/hub";
+
 
 	@Before
-	public void initWebDriverSetup() {
-		WebDriverManager.chromedriver().setup();
+	public void initWebDriverSetup() throws MalformedURLException {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("headless");
-		options.addArguments("--remote-allow-origins=*");
 		options.addArguments("--window-size=1920,1080");
 		options.addArguments("--start-maximized");
 		options.addArguments("--no-proxy-server");
@@ -38,7 +40,8 @@ public class StepDefinitions {
 		options.addArguments("--disable-extensions");
 		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
 		options.addArguments("--no-sandbox"); // Bypass OS security model
-		driver = new ChromeDriver(options);
+	    driver = new RemoteWebDriver(new URL(GRID_URL), options);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 

@@ -1,11 +1,10 @@
 import json
 from pathlib import Path
 from uuid import uuid4
-
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
+import os  # Import os module to access environment variables
 
 
 @pytest.fixture
@@ -16,14 +15,39 @@ def browser_driver(request, record_property):
     save_failure_artifacts(driver, request, record_property)
     driver.close()
 
-
 def setup_driver():
-    """Creates webdriver for Chrome and opens the TestRail website"""
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    """Creates webdriver for Chrome and opens the TestRail website using LambdaTest"""
+    # Fetch LambdaTest credentials from environment variables
+    username = os.getenv('LT_USERNAME')  # Replace LT_USERNAME with your environment variable name for LambdaTest username
+    access_key = os.getenv('LT_ACCESS_KEY')  # Replace LT_ACCESS_KEY with your environment variable name for LambdaTest access key
+
+    if not username or not access_key:
+        raise ValueError("LambdaTest username or access key not provided in environment variables")
+
+    lambda_test_hub = f"https://{username}:{access_key}@hub.lambdatest.com/wd/hub"
+
+    # Desired capabilities
+    desired_cap = {
+        "build": 'PythonSeleniumTest1',
+        "name": 'LambdaTestSampleApp',
+        "platform": 'Windows 10',
+        "browserName": 'Chrome',
+        "version": 'latest',
+        "resolution": '1920x1080',
+        "network": True,
+        "visual": True,
+        "video": True,
+        "console": True,
+        "geoLocation": "US"
+        # You can add more capabilities here
+    }
+
+    # Initialize the remote WebDriver using LambdaTest
+    driver = webdriver.Remote(
+        command_executor=lambda_test_hub,
+        desired_capabilities=desired_cap
+    )
+
     driver.implicitly_wait(3)
     driver.set_page_load_timeout(10)
     driver.set_window_size(1920, 1080)
